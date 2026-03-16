@@ -1,63 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ReXe - Data System</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReXe Hacker Portal</title>
 
-    <!-- Matrix Animation Background -->
-    <style>
-        body {
-            margin: 0;
-            background: black;
-            overflow: hidden;
-            font-family: monospace;
-            color: red;
-            text-align: center;
-        }
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    color: #ff1a1a;
+    font-family: monospace;
+    overflow: hidden;
+}
 
-        #eyes {
-            position: absolute;
-            top: 35%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 120px;
-            color: red;
-            text-shadow: 0 0 25px red;
-            animation: glow 1.5s infinite alternate;
-        }
+/* Matrix Effect */
+.matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
 
-        @keyframes glow {
-            from { text-shadow: 0 0 5px red; }
-            to { text-shadow: 0 0 30px red; }
-        }
+/* Red Eyes */
+.eyes {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 140px;
+    color: red;
+    text-shadow: 0 0 25px red, 0 0 50px red;
+    animation: glow 2s infinite alternate;
+}
 
-        #logStatus {
-            margin-top: 400px;
-            font-size: 22px;
-            color: #ff4444;
-        }
-    </style>
+@keyframes glow {
+    0% { text-shadow: 0 0 20px red; }
+    100% { text-shadow: 0 0 50px red; }
+}
+
+/* Center Text */
+.center-text {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 22px;
+    text-align: center;
+    z-index: 10;
+}
+
+/* Button */
+.btn {
+    margin-top: 15px;
+    padding: 10px 25px;
+    background: red;
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+</style>
 </head>
 
 <body>
 
-    <!-- ReXe Red Animated Eyes -->
-    <div id="eyes">👁️ 👁️</div>
+<canvas class="matrix" id="matrix"></canvas>
 
-    <h2 id="logStatus">Connecting to ReXe Secure Server...</h2>
+<div class="eyes">👀</div>
 
-    <canvas id="matrixCanvas"></canvas>
+<div class="center-text">
+    <h2>WELCOME TO <span style="color:#ff0000">ReXe</span> HACKER SYSTEM</h2>
+    <button class="btn" onclick="window.location='admin.html'">Admin Login</button>
+</div>
 
-    <!-- Firebase Config -->
-    <script src="firebase-config.js"></script>
+<script>
+// Matrix Effect Code
+const c = document.getElementById("matrix");
+const ctx = c.getContext("2d");
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+c.height = window.innerHeight;
+c.width = window.innerWidth;
 
-    <!-- Main Script -->
-    <script src="script.js"></script>
+const matrixChars = "01XREXE";
+const fontSize = 15;
+const columns = c.width / fontSize;
+
+let drops = [];
+for (let x = 0; x < columns; x++) drops[x] = 1;
+
+function drawMatrix() {
+    ctx.fillStyle = "rgba(0,0,0,0.09)";
+    ctx.fillRect(0, 0, c.width, c.height);
+
+    ctx.fillStyle = "#ff0000";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+        const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        drops[i]++;
+        if (drops[i] * fontSize > c.height && Math.random() > 0.95)
+            drops[i] = 0;
+    }
+}
+setInterval(drawMatrix, 45);
+</script>
 
 </body>
 </html>
