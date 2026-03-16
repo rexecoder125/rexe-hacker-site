@@ -1,98 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>ReXe Admin Panel</title>
-    <style>
-        body {
-            background: black;
-            color: red;
-            font-family: monospace;
-        }
-        h1 {
-            text-align: center;
-            color: #ff1a1a;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            color: white;
-        }
-        th, td {
-            padding: 8px;
-            border-bottom: 1px solid red;
-        }
-        th {
-            color: #ff3333;
-        }
-        .box {
-            border: 2px solid red;
-            padding: 10px;
-            margin: 20px;
-            border-radius: 10px;
-        }
-    </style>
-
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-    <script>
-        // Insert your Firebase config here
-        const firebaseConfig = {
-            apiKey: "AIzaSyAhM6D-DBm-9-l9GcVuFwops8AgvIIXH-c",
-            authDomain: "rexe-data-system.firebaseapp.com",
-            databaseURL: "https://rexe-data-system-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "rexe-data-system",
-            storageBucket: "rexe-data-system.firebasestorage.app",
-            messagingSenderId: "98130612961",
-            appId: "1:98130612961:web:b3621c39341a7452a6dda0"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-    </script>
-</head>
-
 <body>
-    <h1>🔥 ReXe Admin Dashboard 🔥</h1>
+<script>
+    const key = prompt("Enter Admin Access Key:");
+    if (key !== "REXE-ADMIN-2024") {
+        alert("Access Denied ❌");
+        document.body.innerHTML = "<h1 style='color:red;text-align:center;'>Unauthorized Access</h1>";
+        throw new Error("No Access");
+    }
+</script>
 
-    <div class="box">
-        <table>
-            <thead>
-                <tr>
-                    <th>IP</th>
-                    <th>City</th>
-                    <th>Country</th>
-                    <th>ISP</th>
-                    <th>Browser</th>
-                    <th>Platform</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody id="logTable"></tbody>
-        </table>
-    </div>
-
-    <script>
-        const tableBody = document.getElementById("logTable");
-
-        db.ref("logs").on("child_added", (snap) => {
-            const data = snap.val();
-
-            const row = `
-                <tr>
-                    <td>${data.ip}</td>
-                    <td>${data.city}</td>
-                    <td>${data.country}</td>
-                    <td>${data.isp}</td>
-                    <td>${data.browser}</td>
-                    <td>${data.platform}</td>
-                    <td>${data.time}</td>
-                </tr>
-            `;
-
-            tableBody.innerHTML = row + tableBody.innerHTML;
-        });
-    </script>
-</body>
-</html>
+<h1>🔥 ReXe Admin Dashboard 🔥</h1>
