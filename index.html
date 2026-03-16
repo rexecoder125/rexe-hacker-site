@@ -1,1 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReXe - Data System</title>
 
+    <!-- Matrix Animation Background -->
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            overflow: hidden;
+            font-family: monospace;
+            color: red;
+            text-align: center;
+        }
+
+        #eyes {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 120px;
+            color: red;
+            text-shadow: 0 0 25px red;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px red; }
+            to { text-shadow: 0 0 30px red; }
+        }
+
+        #logStatus {
+            margin-top: 400px;
+            font-size: 22px;
+            color: #ff4444;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ReXe Red Animated Eyes -->
+    <div id="eyes">👁️ 👁️</div>
+
+    <h2 id="logStatus">Connecting to ReXe Secure Server...</h2>
+
+    <canvas id="matrixCanvas"></canvas>
+
+    <!-- Firebase Config -->
+    <script src="firebase-config.js"></script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+
+    <!-- Main Script -->
+    <script src="script.js"></script>
+
+</body>
+</html>
